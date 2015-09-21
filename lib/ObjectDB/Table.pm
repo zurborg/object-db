@@ -16,6 +16,7 @@ use ObjectDB::With;
 use ObjectDB::Meta;
 use ObjectDB::Exception;
 use ObjectDB::Util qw(execute merge merge_rows filter_columns);
+use ObjectDB::Stmt;
 
 sub new {
     my $class = shift;
@@ -130,14 +131,6 @@ sub find {
 sub find_by_sql {
     my $self = shift;
     my ($sql, $bind, %params) = @_;
-
-    {
-
-        package ObjectDB::Stmt;
-        sub new { bless {@_[1 .. $#_]}, $_[0] }
-        sub to_sql  { shift->{sql} }
-        sub to_bind { @{shift->{bind}} }
-    }
 
     my @bind;
     if (ref $bind eq 'HASH') {

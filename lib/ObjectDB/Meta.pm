@@ -358,8 +358,8 @@ sub discover_schema {
 sub generate_columns_methods {
     my $self = shift;
 
-    no strict 'refs';
-    no warnings 'redefine';
+    no strict 'refs'; ## no critic
+    no warnings 'redefine'; ## critic
     foreach my $column ($self->get_columns) {
         *{$self->class . '::' . $column} =
           sub { shift->column($column, @_) };
@@ -371,8 +371,8 @@ sub generate_columns_methods {
 sub generate_related_methods {
     my $self = shift;
 
-    no strict 'refs';
-    no warnings 'redefine';
+    no strict 'refs'; ## no critic
+    no warnings 'redefine'; ## no critic
     foreach my $rel_name (keys %{$self->relationships}) {
         *{$self->class . '::' . $rel_name} =
           sub { shift->related($rel_name, @_) };

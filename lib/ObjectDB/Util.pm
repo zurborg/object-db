@@ -27,7 +27,7 @@ sub load_class {
     return 1 if exists $INC{$path} && defined $INC{$path};
 
     {
-        no strict 'refs';
+        no strict 'refs'; ## no critic
 
         for (keys %{"$class\::"}) {
             return 1 if defined &{$_};
@@ -44,7 +44,7 @@ sub load_class {
         delete $INC{$path};
 
         {
-            no strict 'refs';
+            no strict 'refs'; ## no critic
             %{"$class\::"} = ();
         }
 

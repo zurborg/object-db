@@ -79,12 +79,12 @@ sub is_modified {
     return $self->{is_modified};
 }
 
-sub dbh { &init_db }
+sub dbh { goto &init_db }
 
 sub init_db {
     my $self = shift;
 
-    no strict;
+    no strict 'refs'; ## no critic
 
     my $class = ref($self) ? ref($self) : $self;
 
@@ -220,7 +220,7 @@ sub get_column {
                 return ref $default eq 'CODE' ? $default->() : $default;
             }
             else {
-                return undef;
+                return;
             }
         }
 
