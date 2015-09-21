@@ -14,6 +14,7 @@ use ObjectDB::RelatedFactory;
 use ObjectDB::Table;
 use ObjectDB::With;
 use ObjectDB::Util qw(execute merge_rows filter_columns);
+use Try::Tiny;
 
 our $VERSION = '3.12';
 
@@ -124,18 +125,16 @@ sub txn {
     my $dbh = $self->init_db;
 
     my $retval;
-    eval {
+    try {
         $dbh->{AutoCommit} = 0;
 
         $retval = $cb->($self);
 
         $self->commit;
-    } || do {
-        my $e = $@;
-
+    } catch {
         $self->rollback;
 
-        Carp::croak($e);
+        Carp::croak($_);
     };
 
     return $retval;

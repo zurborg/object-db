@@ -11,6 +11,7 @@ our @EXPORT_OK = qw(execute merge merge_rows filter_columns);
 use Carp ();
 use Hash::Merge ();
 use ObjectDB::Exception;
+use Try::Tiny;
 
 sub execute {
     my ($dbh, $stmt, %context) = @_;
@@ -19,15 +20,11 @@ sub execute {
     my @bind = $stmt->to_bind;
 
     my ($rv, $sth);
-    eval {
+    try {
         $sth = $dbh->prepare($sql);
         $rv  = $sth->execute(@bind);
-
-        1;
-    } or do {
-        my $e = $@;
-
-        ObjectDB::Exception->throw($e, %context, sql => $stmt);
+    } catch {
+        ObjectDB::Exception->throw($_, %context, sql => $stmt);
     };
 
     return wantarray ? ($rv, $sth) : $rv;
