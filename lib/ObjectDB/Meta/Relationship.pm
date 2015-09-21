@@ -6,7 +6,7 @@ use warnings;
 our $VERSION = '3.12';
 
 use Carp ();
-use ObjectDB::Util qw(load_class);
+use Class::Load qw(load_class);
 
 sub new {
     my $class = shift;

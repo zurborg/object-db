@@ -7,7 +7,7 @@ use base 'ObjectDB::Meta::Relationship';
 
 our $VERSION = '3.12';
 
-use ObjectDB::Util qw(load_class);
+use Class::Load qw(load_class);
 
 sub new {
     my $self = shift->SUPER::new(@_);
