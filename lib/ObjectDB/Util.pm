@@ -8,7 +8,7 @@ use base 'Exporter';
 our $VERSION   = '3.12';
 our @EXPORT_OK = qw(load_class execute merge merge_rows filter_columns);
 
-require Carp;
+use Carp ();
 use Hash::Merge ();
 use ObjectDB::Exception;
 

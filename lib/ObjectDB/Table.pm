@@ -7,7 +7,7 @@ our $VERSION = '3.12';
 
 use constant DEFAULT_PAGE_SIZE => 10;
 
-require Carp;
+use Carp ();
 use SQL::Composer;
 use SQL::Composer::Expression;
 use ObjectDB;

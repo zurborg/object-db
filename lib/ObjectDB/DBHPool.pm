@@ -5,7 +5,7 @@ use warnings;
 
 our $VERSION = '3.12';
 
-require Carp;
+use Carp ();
 use ObjectDB::DBHPool::Connection;
 
 sub new {

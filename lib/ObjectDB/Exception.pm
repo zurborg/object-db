@@ -5,7 +5,7 @@ use warnings;
 
 use overload '""' => \&to_string, fallback => 1;
 
-require Carp;
+use Carp ();
 
 sub new {
     my $class = shift;

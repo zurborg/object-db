@@ -6,9 +6,10 @@ use mro;
 
 our $VERSION = '3.12';
 
-require Storable;
-require Carp;
+use Storable ();
+use Carp ();
 use List::Util qw(first);
+use Class::Load qw(try_load_class);
 
 use ObjectDB::Meta::RelationshipFactory;
 
@@ -333,9 +334,9 @@ sub add_relationships {
 sub discover_schema {
     my $self = shift;
 
-    eval { require DBIx::Inspector; 1 } or do {
+    unless (try_load_class('DBIx::Inspector')) {
         Carp::croak('DBIx::Inspector is required for auto discover');
-    };
+    }
 
     my $dbh = $self->class->init_db;
 

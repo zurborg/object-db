@@ -2,12 +2,11 @@ package ObjectDB::Meta::Relationship::OneToMany;
 
 use strict;
 use warnings;
+use Carp ();
 
 use base 'ObjectDB::Meta::Relationship';
 
 our $VERSION = '3.12';
-
-require Carp;
 
 sub type     { 'one to many' }
 sub is_multi { 1 }

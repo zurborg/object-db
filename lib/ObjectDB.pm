@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use mro;
 
-require Carp;
+use Carp ();
 use Scalar::Util ();
 use SQL::Composer;
 use ObjectDB::DBHPool;
